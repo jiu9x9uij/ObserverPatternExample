@@ -1,13 +1,11 @@
 package com.jiu9x9uij.observerpatternexample;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Observable;
 
 /**
  * Created by Yilin on 2015/7/23.
  */
-public class Subject {
-    private List<Observer> observers = new ArrayList<Observer>();
+public class Subject extends Observable {
     private int value;
 
     public int getValue() {
@@ -16,17 +14,7 @@ public class Subject {
 
     public void setValue(int value) {
         this.value = value;
-        notifyAllObservers();
+        setChanged();
+        notifyObservers(this);
     }
-
-    public void attach(Observer observer) {
-        observers.add(observer);
-    }
-
-    public void notifyAllObservers() {
-        for (Observer observer: observers) {
-            observer.update();
-        }
-    }
-
 }

@@ -2,20 +2,24 @@ package com.jiu9x9uij.observerpatternexample;
 
 import android.widget.TextView;
 
+import java.util.Observable;
+import java.util.Observer;
+
 /**
  * Created by Yilin on 2015/7/23.
  */
-public class NameObserver extends Observer {
+public class NameObserver implements Observer {
+    Subject subject;
     TextView tv;
 
     public NameObserver(TextView tv, Subject subject) {
         this.subject = subject;
-        this.subject.attach(this);
+        this.subject.addObserver(this);
         this.tv = tv;
     }
 
     @Override
-    public void update() {
-        tv.setText("NameObserver: " + subject.getValue());
+    public void update(Observable observable, Object data) {
+        tv.setText("NameObserver: " + ((Subject) observable).getValue());
     }
 }
